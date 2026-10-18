@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Class Cookbook — Submit a Recipe</title>
+    <style>
+      #top {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Command + / to comment in whatever language you are currently writing -->
+
+    <h1>Class Cookbook</h1>
+    <p id="top">
+      Last class we marked up a recipe as a web page. Today we build the form
+      someone would fill out to send us one. For more information see
+      <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank"
+        >W3 Schools Tutorials</a
+      >. Whenever you need to make an anchor tag but you don't have the final
+      link/url yet... use the <code>#</code> for your href!
+    </p>
+
+    <!-- ============================================================
+         THE FORM GOES HERE.
+
+         We build it together, one fieldset at a time:
+
+           1. Who is cooking?   text, email, password
+           2. The recipe        text, number, range, select
+           3. How hard is it?   radio    (one answer only)
+           4. Dietary tags      checkbox (several answers)
+           5. The actual food   textarea
+           6. Extras            file, url, date, color
+           7. Buttons           submit, reset
+
+         Start with the <form> tag itself and its attributes, then add
+         one fieldset at a time. Do not skip ahead -- the point is to
+         watch what each input type does in the browser as we add it.
+         ============================================================ -->
+
+         <!-- The form tag itself is not visible on the page. It wraps form elements and bakes
+          in some broser default behavior. You can hit enter button inside the form will submit the form. -->
+
+          <!-- GET to retrive data. POST to write to a DB or send data to a restful API endpoint
+           PUT edit/update an existing entry in the db, DELETE delete a record from the DB-->
+           <form name="contactUs" target="_self" method="GET">
+            <!-- This is an old school tag but it's nice for grouping form data without CSS -->
+             <fieldset>
+              <legend>Who is cooking?</legend>
+              <p>
+                We can put any other tag inside of a form, maybe it's for instruction
+                or a diagram or a test question.
+              </p>
+              <label for="firstName">First Name:</label>
+              <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              required
+              placeholder="Dummy Text Hint"
+              />
+              <br />
+              <br />
+              <label for="lastName">Last Name:</label>
+              <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              required
+              placeholder="Dummy Last Name Hint"
+              maxlength="5"
+              />
+            </fieldset>
+            <fieldset>
+              <legend>Set up user account</legend>
+              <label for="email">Email:</label>
+              <input
+              name="email"
+              id="email"
+              type="email"
+              required
+              />
+              <br />
+              <!-- Password input type masks the entered text -->
+               <label for="password">Password:</label>
+               <input
+               type="password"
+               id="password"
+               name="password"
+               required
+               />
+              </fieldset>
+              <fieldset>
+                <br />
+                <label for="userBio">Bio:</label>
+                <textarea
+                name="userBio"
+                id="userBio"
+                rows="10"
+                cols="50"
+                placeholder="Tell us about yourself"
+                ></textarea>
+              </fieldset>
+              <fieldset>
+                <legend>Checkbox Group</legend>
+                <p>Check boxes allow the user to select more than one value at once.
+                  Grouped checkboxes (aka for the same answer) all share the same name 
+                  attribute. The value attribute is what gets sent to the server if theat
+                  checkbox is checked.
+                </p>
+                <label for="pet">What pets do you have?</label>
+
+                <!-- You will sometimes see the label for individual checkboxes wrapped around the label it self -->
+                <!-- When you copy paste checkbox or radio groups make sure you updated the label
+                 (user sees) and the value (submitted to the db)-->
+
+                <label><input type="checkbox" name="pet" value="dog"/>DOG</label>
+                <label><input type="checkbox" name="pet" value="cat"/>CAT</label>
+                <label><input type="checkbox" name="pet" value="bird"/>BIRD</label>
+                <label><input type="checkbox" name="pet" value="fish"/>FISH</label>
+
+                </fieldset>
+
+                <fieldset><legend>Dropdowns or Select Options</legend>legend'>
+                <label for="state">Pick a State:</label>
+                <!--Select a elementwraps the grouped options for the dropdown-->
+                <!--The plain text is the option that the user sees-->
+                <select name="state" id="state">
+                  <option value="CA">California</option>
+                  <option value="TX">Texas</option>
+                  <option value="NY">New York</option>
+                </select>
+                </legend></fieldset>
+
+
+
+              <!-- This is how you use an input type as your submit button -->
+               <input type="submit" value="Submit Form" />
+              </form>
