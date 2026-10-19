@@ -29,8 +29,8 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  text-align: center;
-  padding: 0;
+  text-align: left;
+  padding: 0 1rem;
   position: relative;
   background-color: #fff6ee;
 }
@@ -40,7 +40,7 @@ header {
 .brand {
   margin: 0;
   font-weight: 300;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 header a {
@@ -60,7 +60,7 @@ header a {
   color: #333;
   font-size: 2rem;
   position: absolute;
-  top: 0.25rem;
+  top: 0.75rem;
   right: 1rem;
   cursor: pointer;
 }
