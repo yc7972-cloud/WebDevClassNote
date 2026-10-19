@@ -6,6 +6,8 @@
 
 /* 1. GLOBAL STYLES */
 
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -33,14 +35,17 @@ header {
   padding: 0 1rem;
   position: relative;
   background-color: #fff6ee;
+  border-bottom: 1px solid #e5d8ce;
 }
 
 /* Frio Logo */
 
 .brand {
   margin: 0;
-  font-weight: 300;
+  font-family: 'Gaegu', cursive;
+  font-weight: 500;
   padding: 1rem 0;
+  font-size: 4rem
 }
 
 header a {
@@ -58,15 +63,24 @@ header a {
 .mobile-menu {
   display: block;
   color: #333;
-  font-size: 2rem;
+  font-size: 3rem;
   position: absolute;
-  top: 0.75rem;
+  top: 1.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
 
 /* 4. NAVIGATION - MOBILE */
+
+nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 75%;
+  background-color: #fffdfb;
+  z-index: 10;
+}
 
 .menu {
   list-style-type: none;
@@ -78,8 +92,8 @@ header a {
 
 /* JavaScript adds the show class */
 
-.show {
-  display: block;
+.menu.show {
+  display: flex;
 }
 
 .menu li {
@@ -165,6 +179,11 @@ header a {
 
   .thumb {
     flex: 0 0 23%;
+  }
+
+  nav {
+    position: static;
+    width: auto;
   }
 
 }
