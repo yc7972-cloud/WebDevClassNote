@@ -1,0 +1,170 @@
+
+/* ===================================
+   FRIO - MOBILE FIRST CSS
+   =================================== */
+
+
+/* 1. GLOBAL STYLES */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #fff6ee;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+
+/* 2. HEADER - MOBILE FIRST */
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  padding: 0;
+  position: relative;
+  background-color: #fff6ee;
+}
+
+/* Frio Logo */
+
+.brand {
+  margin: 0;
+  font-weight: 300;
+  padding: 1rem;
+}
+
+header a {
+  color: #333;
+  text-decoration: none;
+}
+
+.brand a {
+  color: #ff8a60;
+}
+
+
+/* 3. HAMBURGER MENU - MOBILE */
+
+.mobile-menu {
+  display: block;
+  color: #333;
+  font-size: 2rem;
+  position: absolute;
+  top: 0.25rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+
+/* 4. NAVIGATION - MOBILE */
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  flex-direction: column;
+}
+
+/* JavaScript adds the show class */
+
+.show {
+  display: block;
+}
+
+.menu li {
+  min-width: 5rem;
+  border-bottom: 1px solid #e5d8ce;
+}
+
+.menu li a {
+  display: block;
+  padding: 1rem;
+}
+
+.menu li a:hover {
+  color: #ff8a60;
+  background-color: #fce8da;
+}
+
+
+/* 5. PHOTO / RECIPE CARDS - MOBILE */
+
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.thumb {
+  flex: 0 0 100%;
+  margin: 1rem auto;
+}
+
+
+/* ===================================
+   6. TABLET - 768px AND ABOVE
+   =================================== */
+
+@media screen and (min-width: 768px) {
+
+  .container {
+    flex-direction: row;
+  }
+
+  .thumb {
+    flex: 0 0 45%;
+  }
+
+}
+
+
+/* ===================================
+   7. DESKTOP - 1025px AND ABOVE
+   =================================== */
+
+@media screen and (min-width: 1025px) {
+
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 0 2rem;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .menu li {
+    border-bottom: none;
+  }
+
+  .container {
+    flex-direction: row;
+    padding: 2rem;
+  }
+
+  .thumb {
+    flex: 0 0 23%;
+  }
+
+}
