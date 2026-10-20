@@ -7,6 +7,8 @@
 /* 1. GLOBAL STYLES */
 
 @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -74,12 +76,19 @@ header a {
 /* 4. NAVIGATION - MOBILE */
 
 nav {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 75%;
-  background-color: #fffdfb;
+  width: 55%;
+  height: 100vh;
+  background-color: rgba(255, 246, 238, 0.95);
   z-index: 10;
+  border-top: 1px solid #e5d8ce;
+}
+
+nav:has(.menu.show) {
+  display: block;
 }
 
 .menu {
@@ -103,7 +112,11 @@ nav {
 
 .menu li a {
   display: block;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  color: #252525;
 }
 
 .menu li a:hover {
@@ -112,20 +125,438 @@ nav {
 }
 
 
-/* 5. PHOTO / RECIPE CARDS - MOBILE */
-
-.container {
-  padding: 1rem;
+/* HERO SECTION - MOBILE FIRST */
+.hero {
+  background-image: url('../img/heroimg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
 }
 
-.thumb {
-  flex: 0 0 100%;
-  margin: 1rem auto;
+
+/* Hero text - Mobile First */
+
+.hero-text {
+  width: 55%;
+  max-width: 520px;
 }
+
+.hero-text h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #342b27;
+}
+
+.hero-text p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #3b302b;
+  text-shadow: 0 1px 2px rgba(255, 248, 240, 0.8);
+}
+
+
+/* HERO BUTTON */
+
+.hero-button {
+  display: inline-block;
+  background-color: #ff8a60;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.8rem;
+  border-radius: 30px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.hero-button:hover {
+  background-color: #ed754c;
+}
+
+
+/* MEAL CATEGORIES */
+
+.meal-section {
+  padding: 1.5rem 1rem;
+}
+
+.meal-section h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.8rem;
+  color: #342b27;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.meal-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.meal-card {
+  flex: 1;
+  min-width:0;
+  text-decoration: none;
+  color: #342b27;
+  text-align: center;
+}
+
+.meal-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.meal-card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.meal-card:hover img {
+  transform: scale(1.03);
+}
+
+/* 6. CAN MAKE NOW - MOBILE FIRST */
+
+.can-make-section {
+  padding: 0.5rem 1rem 1rem;
+}
+
+.can-make-section h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.8rem;
+  color: #342b27;
+  margin: 0 0 0.25rem;
+}
+
+.can-make-section p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: #6b605a;
+  margin-bottom: 0 0 0.75rem;
+}
+
+.recipe-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.recipe-card {
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: #342b27;
+}
+
+.recipe-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.recipe-card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0;
+  text-align: left;
+}
+
+
+/* EXPIRING INGREDIENTS - MOBILE FIRST */
+
+.expiring-section {
+  background-color: #fff6ee;
+  padding: 1rem;
+}
+
+.expiring-section h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.8rem;
+  color: #342b27;
+  margin: 0 0 1rem;
+}
+
+.expiring-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.expiring-item {
+  background-color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+}
+
+.expiring-item p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #342b27;
+  margin: 0;
+}
+
+
+/* RECIPES PAGE - MOBILE FIRST */
+
+.recipes-page {
+  padding: 1.5rem 1.5rem;
+}
+
+/* Recipes Title */
+
+.recipes-page h1 {
+  font-family: 'Gaegu', cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #342b27;
+  margin: 0;
+}
+
+/* Description */
+
+.recipes-page > p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #6b605a;
+  margin: 0.25rem 0 1.5rem;
+}
+
+/* Search Bar */
+
+.recipes-page input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #eee3da;
+  border-radius: 12px;
+  background-color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  outline-color: #ff8a60;
+}
+
+
+/* RECIPE FILTER BUTTONS - MOBILE FIRST */
+
+.recipe-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filter-btn {
+  background-color: white;
+  color: #342b27;
+  border: none;
+  border-radius: 25px;
+  padding: 0.6rem 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background-color: #fce8da;
+}
+
+
+.filter-btn.active {
+  background-color: #ff8a60;
+  color: white;
+}
+
+
+/* RECIPE CARDS - MOBILE */
+
+.recipes-results {
+  margin-top: 2rem;
+}
+
+.recipes-results h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.recipes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipes-card {
+  width: calc(50% - 0.5rem);
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.recipes-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.recipes-card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  margin: 0.5rem 0.5rem 0;
+}
+
+.recipes-card p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  margin: 0 0.5rem 0.75rem;
+  color: #6b605a;
+}
+
+
+/* MY FRIDGE PAGE - MOBILE FIRST */
+
+.fridge-page {
+  padding: 1.5rem 1rem;
+}
+
+.fridge-page h1 {
+  font-family: 'Gaegu', cursive;
+  font-size: 3rem;
+  color: #342b27;
+  margin: 0;
+}
+
+.fridge-page > p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #6b605a;
+  margin: 0.25rem 0 1.5rem;
+}
+
+/* Ingredients Heading */
+
+.fridge-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.fridge-heading h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  color: #342b27;
+  margin: 0;
+}
+
+/* Add Ingredient Button */
+
+.add-ingredient-btn {
+  background-color: #ff8a60;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.2rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-ingredient-btn:hover {
+  background-color: #ed754c;
+}
+
+/* Ingredient Cards */
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ingredient-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #342b27;
+}
+
+
+/* FRIDGE FILTER BUTTONS */
+
+.fridge-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fridge-filter-btn {
+  background-color: white;
+  color: #342b27;
+  border: none;
+  border-radius: 25px;
+  padding: 0.6rem 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fridge-filter-btn.active {
+  background-color: #ff8a60;
+  color: white;
+}
+
+.fridge-filter-btn:hover {
+  background-color: #fce8da;
+}
+
+.fridge-filter-btn.active:hover {
+  background-color: #ed754c;
+}
+
+
+/* FRIDGE SEARCH BAR */
+
+.fridge-search {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #eee3da;
+  border-radius: 12px;
+  background-color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  outline-color: #ff8a60;
+  margin-bottom: 1rem;
+}
+
 
 
 /* ===================================
@@ -134,12 +565,13 @@ nav {
 
 @media screen and (min-width: 768px) {
 
-  .container {
+  .meal-container {
     flex-direction: row;
   }
-
-  .thumb {
-    flex: 0 0 45%;
+  
+  .meal-card {
+    flex: 1;
+    min-width: 0;
   }
 
 }
@@ -171,19 +603,113 @@ nav {
   .menu li {
     border-bottom: none;
   }
-
-  .container {
-    flex-direction: row;
-    padding: 2rem;
-  }
-
-  .thumb {
-    flex: 0 0 23%;
-  }
-
+  
   nav {
+    display: block;
     position: static;
     width: auto;
+    height: auto;
+    background-color: transparent;
+    border-top: none;
   }
+
+  
+  .hero-text {
+    width: 42%;
+    max-width: 520px;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+  }
+
+  .meal-container {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+  
+  .meal-card {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .meal-section {
+    padding: 1.5rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .meal-card img {
+    aspect-ratio: 4 / 3;
+    border-radius: 15px;
+  }
+
+  .meal-card h3 {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
+
+  .can-make-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem 1rem;
+  }
+
+  .recipe-container {
+    gap: 1.5rem;
+  }
+  
+  .recipe-card h3 {
+    font-size: 1rem;
+  }
+  
+  /* EXPIRING INGREDIENTS - DESKTOP */
+
+  .expiring-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* RECIPES PAGE - DESKTOP */
+  
+  .recipes-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .recipes-grid {
+   gap: 1.5rem;
+  }
+
+  .recipes-card {
+    width: calc((100% - 3rem) / 3);
+  }
+
+  .recipes-card img {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* MY FRIDGE - DESKTOP */
+  .fridge-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .fridge-heading {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+
 
 }
