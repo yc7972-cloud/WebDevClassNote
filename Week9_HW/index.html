@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Today's Outfit</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Week 09: Random Outfit Generator -->
+
+    <article class="outfit-card">
+      <header class="outfit-header">
+        <p class="subtitle">Your Personal Style Guide</p>
+        <h1 class="outfit-title" id="outfit-title"></h1>
+        <p class="temperature" id="temperature"></p>
+      </header>
+
+      <p class="weather-advice" id="weather-advice"></p>
+
+      <section class="outfit-breakdown">
+        <h2>Outfit Breakdown</h2>
+
+        <p class="item-price" id="top-price"></p>
+        <p class="item-price" id="bottom-price"></p>
+        <p class="item-price" id="shoe-price"></p>
+
+        <p class="outfit-total">
+          <span>Total</span>
+          <strong id="outfit-total"></strong>
+        </p>
+
+        <p class="budget-info" id="budget-info"></p>
+      </section>
+
+      <!-- Outfit Checklist -->
+      <section class="outfit-list-wrap">
+        <h2>Outfit Checklist</h2>
+        <ul class="outfit-list" id="outfit-list"></ul>
+        <p class="outfit-description" id="outfit-description"></p>
+        <p class="styling-tip" id="styling-tip"></p>
+      </section>
+    </article>
+
+    <script>
+/* 1. ARRAYS */
+      const tops = [
+        'Pink Sweater',
+        'White T-shirt',
+        'Cream Cardigan',
+        'Black Blouse'
+      ]
+
+      const bottoms = [
+        'Pleated Skirt',
+        'Blue Jeans',
+        'Wide-Leg Pants'
+
+      ]
+      const shoes = [
+        'Mary Janes',
+        'Sneakers',
+        'Ankle Boots',
+        'Ballet Flats',
+        'Loafers'
+      ]
+
+      const occasions = [
+        'School',
+        'Date Night',
+        'Shopping',
+        'Brunch'
+      ]
+
+      const accents = [
+        '#e8b4c5',
+        '#d5c5e8',
+        '#c5d8bd',
+        '#f2d4ad',
+        '#bcd5e8'
+      ]
+
+      const stylingTips = [
+        'Keep it simple and comfortable.',
+        'Add a little jewelry.',
+        'Try a matching handbag.',
+        'Confidence is your best accessory.'
+      ]
+
+      /* 2. PICKING ONE AT RANDOM */
+      function pickRandom(list) {
+        const index = Math.floor(Math.random() * list.length)
+        return list[index]
+      }
+
+      function randomBetween(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
+
+      	/* 3. A DIFFERENT OUTFIT EVERY RELOAD */
+
+      const selectedTop = pickRandom(tops)
+      const bottom = pickRandom(bottoms)
+      const shoe = pickRandom(shoes)
+      const occasion = pickRandom(occasions)
+
+      const temperature = randomBetween(5, 30)
+
+      const topPrice = randomBetween(15, 40) + 0.99 
+      const bottomPrice = randomBetween(20, 50) + 0.99
+      const shoePrice = randomBetween(25, 60) + 0.99
+
+      const budget = 100
+
+      /* 4. CALCULATIONS AND CONDITIONS */
+
+      const total = topPrice + bottomPrice + shoePrice
+      const budgetLeft = budget - total
+
+      const isOverBudget = total > budget
+      const needsAJacket = temperature < 15
+
+      const outfitTitle = `${occasion} Outfit`
+      const temperatureText = `Today's temperature: ${temperature}°C`
+      const outfitDescription = `Wear a ${selectedTop} with ${bottom} and ${shoe}.`
+      
+      let weatherAdvice
+
+      if (needsAJacket) {
+        weatherAdvice = 'Bring a jacket!'
+      } else if (temperature >= 25) {
+        weatherAdvice = 'Wear something light and breathable.'
+      } else {
+        weatherAdvice = 'Enjoy the comfortable weather!'
+      }
+
+      const budgetStatus = isOverBudget ? 'Over budget' : 'Within budget'
+
+      /* 5. THE MATH OBJECT */
+      const estimatedTotal = Math.round(total)
+
+      const affordableOutfits = Math.floor(budget / total)
+
+      const weeklySavings = 20
+      const weeksNeeded = Math.ceil(total / weeklySavings)
+
+      const safeBudgetLeft = Math.max(0, budgetLeft)
+
+      const budgetInfo = `${budgetStatus} · Estimated cost: $${estimatedTotal} · Budget left: $${safeBudgetLeft.toFixed(2)} · Affordable outfits: ${affordableOutfits} · Save for ${weeksNeeded} weeks`
+
+      /* 6. A FOR LOOP OVER THE OUTFIT */
+      const outfit = [selectedTop, bottom, shoe]
+
+      let outfitHTML = ''
+      for (let i = 0; i < outfit.length; i++) {
+        const stripe = i % 2 === 0 ? 'stripe' : ''
+        outfitHTML += `<li class="${stripe}">${outfit[i]}</li>`
+      }
+
+      /* 7. ON THE PAGE */
+      document.querySelector('#outfit-title').textContent = outfitTitle
+      document.querySelector('#temperature').textContent = temperatureText
+      document.querySelector('#weather-advice').textContent = weatherAdvice
+
+      document.querySelector('#top-price').textContent =
+      `${selectedTop} — $${topPrice.toFixed(2)}`
+      
+      document.querySelector('#bottom-price').textContent =
+      `${bottom} — $${bottomPrice.toFixed(2)}`
+      
+      document.querySelector('#shoe-price').textContent =
+      `${shoe} — $${shoePrice.toFixed(2)}`
+
+      document.querySelector('#outfit-total').textContent =
+      `$${total.toFixed(2)}`
+      
+      document.querySelector('#budget-info').textContent = budgetInfo
+
+      document.querySelector('#outfit-list').innerHTML = outfitHTML
+
+      document.querySelector('#outfit-description').textContent = outfitDescription
+      
+      document.querySelector('#styling-tip').textContent = pickRandom(stylingTips)
+
+      /* 8. A RANDOM COLOR SCHEME */
+      document.body.style.setProperty('--accent', pickRandom(accents))
+
+    </script>
+  </body>
+</html>
