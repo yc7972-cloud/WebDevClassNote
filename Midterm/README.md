@@ -1,4 +1,4 @@
-# Frio — Cook More, Waste Less
+# Frio - Cook More, Waste Less
 
 ## Project Concept
 
@@ -27,7 +27,7 @@ The goal is to make cooking easier, reduce food waste, and help users prepare me
 
 ## Design Approach
 
-Frio is designed with a mobile-first approach. I will build the mobile layout first, then adapt it to desktop screens using CSS media queries.
+Frio is designed with a mobile first approach. I will build the mobile layout first, then adapt it to desktop screens using CSS media queries.
 
 The visual design uses warm colors, food photography, and simple navigation.
 
