@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Today's Outfit</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Week 10: Interactive Outfit Generator -->
+
+    <article class="outfit-card">
+      <header class="outfit-header">
+        <p class="subtitle">Your Personal Style Guide</p>
+        <h1 class="outfit-title" id="outfit-title"></h1>
+        <p class="temperature" id="temperature"></p>
+      </header>
+
+      <p class="weather-advice" id="weather-advice"></p>
+
+      <section class="outfit-breakdown">
+        <h2>Outfit Breakdown</h2>
+
+        <p class="item-price" id="top-price"></p>
+        <p class="item-price" id="bottom-price"></p>
+        <p class="item-price" id="shoe-price"></p>
+
+        <p class="outfit-total">
+          <span>Total</span>
+          <strong id="outfit-total"></strong>
+        </p>
+
+        <p class="budget-info" id="budget-info"></p>
+      </section>
+
+      <!-- Outfit Controls -->
+       <section class="outfit-controls">
+
+        <div class="budget-control">
+          <span class="budget-label">Your Budget</span>
+
+          <button id="budget-minus" type="button"
+          aria-label="Decrease budget">−</button>
+
+          <span class="budget-amount" id="budget-amount"></span>
+
+          <button id="budget-plus" type="button"
+          aria-label="Increase budget">+</button>
+        </div>
+
+        <div class="name-control">
+          <label for="user-name">Your Name</label>
+          <input id="user-name" type="text"
+          placeholder="Enter your name" />
+        </div>
+
+        <button class="generate-button" id="generate-outfit"
+        type="button">
+        Generate New Outfit
+      </button>
+
+
+      </section>
+
+      <!-- Outfit Checklist -->
+       <section class="outfit-list-wrap is-open" id="outfit-section">
+        
+        <h2>
+          <button class="outfit-list-head" id="outfit-toggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="outfit-body">
+          Outfit Checklist
+          <span class="chevron">▾</span>
+        </button>
+      </h2>
+      
+      <div class="collapsible-body" id="outfit-body">
+        <ul class="outfit-list" id="outfit-list"></ul>
+        <p class="outfit-description" id="outfit-description"></p>
+        <p class="styling-tip" id="styling-tip"></p>
+      </div>
+
+</section>
+
+    </article>
+
+    <script>
+/* 1. ARRAYS */
+      const tops = [
+        'Pink Sweater',
+        'White T-shirt',
+        'Cream Cardigan',
+        'Black Blouse'
+      ]
+
+      const bottoms = [
+        'Pleated Skirt',
+        'Blue Jeans',
+        'Wide-Leg Pants'
+
+      ]
+      const shoes = [
+        'Mary Janes',
+        'Sneakers',
+        'Ankle Boots',
+        'Ballet Flats',
+        'Loafers'
+      ]
+
+      const occasions = [
+        'School',
+        'Date Night',
+        'Shopping',
+        'Brunch'
+      ]
+
+      const accents = [
+        '#e8b4c5',
+        '#d5c5e8',
+        '#c5d8bd',
+        '#f2d4ad',
+        '#bcd5e8'
+      ]
+
+      const stylingTips = [
+        'Keep it simple and comfortable.',
+        'Add a little jewelry.',
+        'Try a matching handbag.',
+        'Confidence is your best accessory.'
+      ]
+
+      /* 2. PICKING ONE AT RANDOM */
+      function pickRandom(list) {
+        const index = Math.floor(Math.random() * list.length)
+        return list[index]
+      }
+
+      function randomBetween(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
+
+      	/* 3. STATE */
+
+      let selectedTop
+      let bottom 
+      let shoe
+      let occasion
+
+      let temperature 
+
+      let topPrice 
+      let bottomPrice 
+      let shoePrice
+
+      let stylingTip
+      
+      let accent
+      
+      let budget = 100
+      let userName = ''
+
+      /* CONSTANTS */
+      const MIN_BUDGET = 50
+      const MAX_BUDGET = 200
+      const BUDGET_STEP = 10
+      const weeklySavings = 20
+
+      /* GENERATE A NEW OUTFIT */
+      function generateOutfit() {
+        selectedTop = pickRandom(tops)
+        bottom = pickRandom(bottoms)
+        shoe = pickRandom(shoes)
+        occasion = pickRandom(occasions)
+
+        temperature = randomBetween(5, 30)
+
+        topPrice = randomBetween(15, 40) + 0.99
+        bottomPrice = randomBetween(20, 50) + 0.99
+        shoePrice = randomBetween(25, 60) + 0.99
+
+        stylingTip = pickRandom(stylingTips)
+        accent = pickRandom(accents)
+      }
+      
+      function render() {
+
+      /* 4. CALCULATIONS AND CONDITIONS */
+
+      const total = topPrice + bottomPrice + shoePrice
+      const budgetLeft = budget - total
+
+      const isOverBudget = total > budget
+      const needsAJacket = temperature < 15
+
+      const outfitTitle = userName === ''
+      ? `${occasion} Outfit`
+      : `${userName}'s ${occasion} Outfit`
+
+      const temperatureText = `Today's temperature: ${temperature}°C`
+      const outfitDescription = `Wear a ${selectedTop} with ${bottom} and ${shoe}.`
+      
+      let weatherAdvice
+
+      if (needsAJacket) {
+        weatherAdvice = 'Bring a jacket!'
+      } else if (temperature >= 25) {
+        weatherAdvice = 'Wear something light and breathable.'
+      } else {
+        weatherAdvice = 'Enjoy the comfortable weather!'
+      }
+
+      const budgetStatus = isOverBudget ? 'Over budget' : 'Within budget'
+
+      /* 5. THE MATH OBJECT */
+      const estimatedTotal = Math.round(total)
+
+      const affordableOutfits = Math.floor(budget / total)
+
+      const weeksNeeded = Math.ceil(total / weeklySavings)
+
+      const safeBudgetLeft = Math.max(0, budgetLeft)
+
+      const budgetInfo = `${budgetStatus} · Estimated cost: $${estimatedTotal} · Budget left: $${safeBudgetLeft.toFixed(2)} · Affordable outfits: ${affordableOutfits} · Save for ${weeksNeeded} weeks`
+
+      /* 6. A FOR LOOP OVER THE OUTFIT */
+      const outfit = [selectedTop, bottom, shoe]
+
+      let outfitHTML = ''
+      for (let i = 0; i < outfit.length; i++) {
+        const stripe = i % 2 === 0 ? 'stripe' : ''
+        outfitHTML += `<li class="${stripe}">${outfit[i]}</li>`
+      }
+
+      /* 7. ON THE PAGE */
+      document.querySelector('#outfit-title').textContent = outfitTitle
+      document.querySelector('#temperature').textContent = temperatureText
+      document.querySelector('#weather-advice').textContent = weatherAdvice
+
+      document.querySelector('#top-price').textContent =
+      `${selectedTop} — $${topPrice.toFixed(2)}`
+      
+      document.querySelector('#bottom-price').textContent =
+      `${bottom} — $${bottomPrice.toFixed(2)}`
+      
+      document.querySelector('#shoe-price').textContent =
+      `${shoe} — $${shoePrice.toFixed(2)}`
+
+      document.querySelector('#outfit-total').textContent =
+      `$${total.toFixed(2)}`
+      
+      document.querySelector('#budget-info').textContent = budgetInfo
+      document.querySelector('#budget-amount').textContent = `$${budget}`
+      document.querySelector('#user-name').value = userName
+
+      document.querySelector('#outfit-list').innerHTML = outfitHTML
+
+      document.querySelector('#outfit-description').textContent = outfitDescription
+      
+      document.querySelector('#styling-tip').textContent = stylingTip
+
+      /* 8. A RANDOM COLOR SCHEME */
+      document.body.style.setProperty('--accent', accent)
+
+      /* DISABLE BUTTONS AT THE LIMITS */
+      document.querySelector('#budget-minus').disabled = budget <= MIN_BUDGET
+      document.querySelector('#budget-plus').disabled = budget >= MAX_BUDGET
+    }
+
+
+    /* 9. HANDLER FUNCTIONS */
+    function handleBudgetPlus() {
+      if (budget < MAX_BUDGET) {
+        budget = Math.min(budget + BUDGET_STEP, MAX_BUDGET)
+        render()
+      }
+    }
+
+    function handleBudgetMinus() {
+      if (budget > MIN_BUDGET) {
+        budget = Math.max(budget - BUDGET_STEP, MIN_BUDGET)
+        render()
+      }
+    }
+
+    function handleName(event) {
+      userName = event.target.value
+      render()
+    }
+
+    function handleGenerate() {
+      generateOutfit()
+      render()
+    }
+
+    /* COLLAPSIBLE OUTFIT CHECKLIST */
+    const outfitSection = document.querySelector('#outfit-section')
+    const outfitToggle = document.querySelector('#outfit-toggle')
+
+    function handleOutfitToggle() {
+      const isOpen = outfitSection.classList.toggle('is-open')
+      outfitToggle.setAttribute('aria-expanded', isOpen)
+    }
+
+    /* 10. EVENT LISTENERS */
+    document.querySelector('#budget-plus').addEventListener('click', handleBudgetPlus)
+    document.querySelector('#budget-minus').addEventListener('click', handleBudgetMinus)
+    document.querySelector('#user-name').addEventListener('input', handleName)
+    document.querySelector('#generate-outfit').addEventListener('click', handleGenerate)
+    outfitToggle.addEventListener('click', handleOutfitToggle)
+
+    generateOutfit()
+    render()
+
+    </script>
+  </body>
+</html>

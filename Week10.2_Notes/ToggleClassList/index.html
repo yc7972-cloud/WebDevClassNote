@@ -9,7 +9,12 @@
 
   <body>
     <div class="topbar">
-      <button class="theme-toggle" id="theme" type="button" aria-pressed="false">
+      <button
+        class="theme-toggle"
+        id="theme"
+        type="button"
+        aria-pressed="false"
+      >
         Dark mode
       </button>
     </div>
@@ -42,9 +47,13 @@
       <section class="controls">
         <div class="qty">
           <span class="qty-label">Tickets</span>
-          <button id="minus" type="button" aria-label="One fewer ticket">−</button>
+          <button id="minus" type="button" aria-label="One fewer ticket">
+            −
+          </button>
           <span class="count" id="count"></span>
-          <button id="plus" type="button" aria-label="One more ticket">+</button>
+          <button id="plus" type="button" aria-label="One more ticket">
+            +
+          </button>
         </div>
 
         <div class="promo">
@@ -53,7 +62,9 @@
           <p class="promo-msg" id="promo-msg"></p>
         </div>
 
-        <button class="roll" id="roll" type="button">Roll a different show</button>
+        <button class="roll" id="roll" type="button">
+          Roll a different show
+        </button>
       </section>
 
       <!-- collapsible: one class on this SECTION controls the panel
@@ -137,13 +148,35 @@
          The page responds to clicks and typing. What it cannot do yet
          is show, hide, or change how anything LOOKS. */
 
-      const headliners = ['Bad Moon Rising', 'Velvet Static', 'Dial Tone', 'Mountain Time', 'Kerosene Club', 'The Paper Cuts']
-      const supports = ['Low Ceiling', 'The Ferry Lights', 'Tiny Mirrors', 'Garden State Radio']
+      const headliners = [
+        'Bad Moon Rising',
+        'Velvet Static',
+        'Dial Tone',
+        'Mountain Time',
+        'Kerosene Club',
+        'The Paper Cuts',
+      ]
+      const supports = [
+        'Low Ceiling',
+        'The Ferry Lights',
+        'Tiny Mirrors',
+        'Garden State Radio',
+      ]
       const djs = ['DJ Shortwave', 'DJ Halfmoon', 'DJ Ferry']
-      const venues = ['The Fillmore East', 'Rough Trade', 'Brooklyn Steel', 'Market Hotel']
+      const venues = [
+        'The Fillmore East',
+        'Rough Trade',
+        'Brooklyn Steel',
+        'Market Hotel',
+      ]
       const nights = ['Thu 12 Nov', 'Fri 13 Nov', 'Sat 14 Nov']
       const accents = ['#e0504f', '#2f6f4e', '#3b4c9c', '#b4622a', '#6b3f7a']
-      const taglines = ['Strictly 18+. No re-entry.', 'Late set. Bring earplugs.', 'All ages until 10pm.', 'Sold out three times running.']
+      const taglines = [
+        'Strictly 18+. No re-entry.',
+        'Late set. Bring earplugs.',
+        'All ages until 10pm.',
+        'Sold out three times running.',
+      ]
 
       function pickRandom(list) {
         return list[Math.floor(Math.random() * list.length)]
@@ -225,15 +258,24 @@
           lineupHTML += `<li class="${stripe}"><span class="time">${8 + i}pm</span>${lineup[i]}</li>`
         }
 
-        document.querySelector('#billing').textContent = `${headliner.toUpperCase()} + ${support}`
-        document.querySelector('#where-when').textContent = `${venue} · ${doors}`
+        document.querySelector('#billing').textContent =
+          `${headliner.toUpperCase()} + ${support}`
+        document.querySelector('#where-when').textContent =
+          `${venue} · ${doors}`
         document.querySelector('#status').textContent = status
-        document.querySelector('#price-line').textContent = `${quantity} × $${ticketPrice.toFixed(2)}  —  $${subtotal.toFixed(2)}`
-        document.querySelector('#fee-line').textContent = `Service fee  —  $${serviceFee.toFixed(2)}`
-        document.querySelector('#discount-line').textContent = isStudent ? `Student discount  —  −$${discount.toFixed(2)}` : ''
-        document.querySelector('#promo-line').textContent = promoIsValid ? `Promo FRIEND  —  −$${promoDiscount.toFixed(2)}` : ''
+        document.querySelector('#price-line').textContent =
+          `${quantity} × $${ticketPrice.toFixed(2)}  —  $${subtotal.toFixed(2)}`
+        document.querySelector('#fee-line').textContent =
+          `Service fee  —  $${serviceFee.toFixed(2)}`
+        document.querySelector('#discount-line').textContent = isStudent
+          ? `Student discount  —  −$${discount.toFixed(2)}`
+          : ''
+        document.querySelector('#promo-line').textContent = promoIsValid
+          ? `Promo FRIEND  —  −$${promoDiscount.toFixed(2)}`
+          : ''
         document.querySelector('#total').textContent = `$${total.toFixed(2)}`
-        document.querySelector('#fine-print').textContent = `${ticketsLeft} of ${capacity} tickets remaining`
+        document.querySelector('#fine-print').textContent =
+          `${ticketsLeft} of ${capacity} tickets remaining`
         document.querySelector('#count').textContent = quantity
         document.querySelector('#lineup').innerHTML = lineupHTML
         document.querySelector('#tagline').textContent = tagline
@@ -282,12 +324,70 @@
          are on which elements, and the stylesheet does the rest. */
 
       /* =========================================================
-         GO 
+         1. COLLAPSIBLE SECTION
+         One class on the parent element,
+         the CSS hides the panel and turns the chevron upside down
          ========================================================= */
 
       const lineupSection = document.querySelector('#lineup-section')
-      const lineupToggle = document.querySelector('#lineup')
-      const isOpen = lineupSection.classList.toggle
+      const lineupToggle = document.querySelector('#lineup-toggle')
+
+      function handleLineupToggle() {
+        // toggle() adds the class if its missing from ClassList,
+        // remove it if its there -- and HANDS BACK whether it is on now
+        const isOpen = lineupSection.classList.toggle('is-open')
+
+        // tell assistive technology what just happened, the attribute
+        // takes the string true or false
+        lineupToggle.setAttribute('aria-expanded', isOpen)
+      }
+
+      // add the toggle function to the button/header w/ event listener
+      lineupToggle.addEventListener('click', handleLineupToggle)
+
+      /* =========================================================
+         2. A THEME
+         A class on the body tag redefines the CSS variables the whole page is built from
+         ========================================================= */
+      const themeButton = document.querySelector('#theme')
+
+      function handleTheme() {
+        // add remove the dark class, and store that state as a boolean
+        const isDark = document.body.classList.toggle('dark')
+
+        themeButton.textContent = isDark ? 'Light Mode' : 'Dark Mode'
+        themeButton.setAttribute('aria-pressed', isDark)
+      }
+
+      themeButton.addEventListener('click', handleTheme)
+
+      /* =========================================================
+         3. EVERY FAQ AT ONCE
+         querySelectorAll gives us a list,
+         A loop is going to give every button the same listener
+         ========================================================= */
+
+      const questions = document.querySelectorAll('.faq-q')
+
+      function handleQuestion(event) {
+        // event.currentTarget is the element the listener is ON --
+        // the button --  even when the click landed on the chevron inside of it
+        const button = event.currentTarget
+
+        // data-target="#faq-2" arrives as dataset.target
+        const answer = document.querySelector(button.dataset.target)
+
+        const nowHidden = answer.classList.toggle('is-hidden')
+
+        // chevron lives inside the button, so the class goes there
+        button.classList.toggle('is-open', !nowHidden)
+        button.setAttribute('aria-expanded', !nowHidden)
+      }
+
+      // now we apply the event listeners to our list with a for loop
+      for (let i = 0; i < questions.length; i++) {
+        questions[i].addEventListener('click', handleQuestion)
+      }
 
       rollNewShow()
       render()
